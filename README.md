@@ -2,5 +2,5 @@
 Dockerized .NET Core app
 
 ```
-docker run frederiksen/countto10
+docker run frederiksen/count-to-10
 ```
