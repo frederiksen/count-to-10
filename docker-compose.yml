@@ -1,5 +1,0 @@
-version: '3'
-services:
-  countto10:
-    image: "frederiksen/countto10"
-    build: .
