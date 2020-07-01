@@ -1,11 +1,12 @@
-FROM microsoft/dotnet:2.0-sdk
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /app
-
-# copy csproj and restore as distinct layers
-COPY *.csproj ./
+COPY *.csproj .
 RUN dotnet restore
-
-# copy and build everything else
-COPY . ./
+COPY . .
 RUN dotnet publish -c Release -o out
-ENTRYPOINT ["dotnet", "out/CountTo10.dll"]
+
+# Runtime image
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
+WORKDIR /app
+COPY --from=build /app/out .
+ENTRYPOINT ["dotnet", "CountTo10.dll"]
